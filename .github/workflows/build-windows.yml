@@ -42,9 +42,13 @@ jobs:
 
       - name: Smoke test
         shell: pwsh
+        env:
+          PYTHONIOENCODING: "utf-8"
+          PYTHONUTF8: "1"
         run: |
+          chcp 65001 | Out-Null
           .\dist\verify.exe version
-          .\dist\verify.exe about
+          .\dist\verify.exe --help
 
       - name: Upload EXE artifact
         uses: actions/upload-artifact@v4
