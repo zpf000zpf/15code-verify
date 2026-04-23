@@ -1,36 +1,86 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"/>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="dark light"/>
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}})();</script>
 <title>服务条款 · 15code Verify</title>
-<style>body{max-width:720px;margin:40px auto;padding:0 20px;font:15px/1.7 system-ui,-apple-system,sans-serif;background:#0b0d10;color:#e6e6e6}
-h1{color:#ff6a00}h2{margin-top:32px;border-bottom:1px solid #222;padding-bottom:4px}
-code{background:#1a1d22;padding:1px 5px;border-radius:3px}
-a{color:#ff6a00}</style></head>
+<link rel="stylesheet" href="/static/css/style.css"/>
+</head>
 <body>
-<p><a href="/">← 返回首页</a></p>
-<h1>服务条款</h1><p><em>版本 v1.1 · 生效日期 2026-04-23</em></p>
-<p>使用 15code Verify（以下简称"本工具"）即视为同意本条款。</p>
-<h2>1. 工具性质</h2>
-<p>本工具是 15code 提供的<b>免费技术测试工具</b>，用于帮助用户评估第三方 LLM API 服务的质量与一致性。</p>
-<h2>2. 用户担保</h2>
-<p>使用本工具扫描任何 API 端点时，您担保：(a) 您拥有该 API key 的合法使用权；
-(b) 您有权对该 endpoint 执行技术测试；(c) 您的使用不违反第三方服务商的服务协议；
-(d) 您已理解并接受第 3 条关于数据公开的默认行为。</p>
-<h2>3. 数据处理与公开行为</h2>
-<p><b>API Key</b>：一次性扫描仅内存驻留，扫描结束立即销毁，不落盘。</p>
-<p><b>扫描内容</b>：只使用预置探针题库，不读取或存储用户私人 prompt；扫描产生的 response 仅作指纹对账用途，24 小时内自动删除原文。</p>
-<p><b style="color:#ff6a00">榜单公开（默认）</b>：自 v1.1 起，<b>所有扫描的匿名聚合结果默认进入公开榜单</b>，供应商通过扫描目标 <code>base_url</code> 的 host 名标识。发布内容<b>仅限</b>：
-  <ul>
-    <li>聚合统计指标（均值、置信区间、样本量）</li>
-    <li>探针输出的分类得分（真伪度、计费偏差、缓存、QoS）</li>
-  </ul>
-  发布内容<b>绝不包含</b>：API key、prompt 原文、response 原文、用户 IP、个人标识。
-</p>
-<p>如您不希望某次扫描结果进入榜单，请使用 API 调用并设置 <code>publish_to_leaderboard: false</code>，或通过 <a href="mailto:dispute@15code.com">dispute@15code.com</a> 申请删除。</p>
-<h2>4. 免责声明</h2>
-<p>本工具按"现状"提供。15code <b>不对</b> 检测结果的绝对准确性、结果适用于特定商业决策、工具 24/7 可用性作出任何担保。</p>
-<p>检测报告<b>不构成</b>对任何服务商的法律评价、商品质量结论或投资/交易建议。</p>
-<p>责任上限：¥0（本工具完全免费，零对价）。</p>
-<h2>5. 禁止滥用</h2>
-<p>禁止将本工具用于：对未授权系统的扫描；恶意制造虚假数据污染榜单；任何违反适用法律的行为。</p>
-<h2>6. 联系方式</h2>
-<p>一般咨询 <a href="mailto:support@15code.com">support@15code.com</a> · 争议申诉 <a href="mailto:dispute@15code.com">dispute@15code.com</a></p>
-</body></html>
+<nav class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="/" class="brand">⚡ 15code</a>
+    <span style="color:var(--text-secondary)">/ Verify</span>
+  </div>
+  <div class="nav-right">
+    <a href="/">← 返回首页</a>
+    <button class="btn-sm" onclick="toggleTheme()">🌓</button>
+  </div>
+</nav>
+
+<main class="container" style="max-width:760px">
+  <h1 style="font-size:32px;margin-bottom:8px">服务条款</h1>
+  <p style="color:var(--text-muted);margin-bottom:32px">版本 v1.1 · 生效日期 2026-04-23</p>
+  <div class="card">
+    <p>使用 15code Verify（以下简称"本工具"）即视为同意本条款。</p>
+
+    <h2 style="margin-top:24px">1. 工具性质</h2>
+    <p style="color:var(--text-secondary)">本工具是 15code 提供的 <strong>免费技术测试工具</strong>，用于帮助用户评估第三方 LLM API 服务的质量与一致性。</p>
+
+    <h2 style="margin-top:24px">2. 用户担保</h2>
+    <p style="color:var(--text-secondary)">使用本工具扫描任何 API 端点时，您担保：</p>
+    <ul style="color:var(--text-secondary);padding-left:24px;margin-top:8px">
+      <li>(a) 您拥有该 API key 的合法使用权</li>
+      <li>(b) 您有权对该 endpoint 执行技术测试</li>
+      <li>(c) 您的使用不违反第三方服务商的服务协议</li>
+      <li>(d) 您已理解并接受第 3 条关于数据公开的默认行为</li>
+    </ul>
+
+    <h2 style="margin-top:24px">3. 数据处理与公开行为</h2>
+    <p style="color:var(--text-secondary)"><strong>API Key</strong>：一次性扫描仅内存驻留，扫描结束立即销毁，不落盘。</p>
+    <p style="color:var(--text-secondary);margin-top:8px"><strong>扫描内容</strong>：只使用预置探针题库，不读取或存储用户私人 prompt；扫描产生的 response 仅作指纹对账用途，24 小时内自动删除原文。</p>
+    <p style="color:var(--text-secondary);margin-top:8px"><strong style="color:var(--accent-hover)">榜单公开（默认）</strong>：自 v1.1 起，<strong>所有扫描的匿名聚合结果默认进入公开榜单</strong>，供应商通过扫描目标 <code>base_url</code> 的 host 名标识。发布内容<strong>仅限</strong>：</p>
+    <ul style="color:var(--text-secondary);padding-left:24px;margin-top:8px">
+      <li>聚合统计指标（均值、置信区间、样本量）</li>
+      <li>探针输出的分类得分（真伪度、计费偏差、缓存、QoS）</li>
+    </ul>
+    <p style="color:var(--text-secondary);margin-top:8px">发布内容<strong>绝不包含</strong>：API key、prompt 原文、response 原文、用户 IP、个人标识。</p>
+    <p style="color:var(--text-secondary);margin-top:8px">如您不希望某次扫描结果进入榜单，请使用 API 调用并设置 <code>publish_to_leaderboard: false</code>，或通过 <a href="mailto:dispute@15code.com" style="color:var(--accent-hover)">dispute@15code.com</a> 申请删除。</p>
+
+    <h2 style="margin-top:24px">4. 免责声明</h2>
+    <p style="color:var(--text-secondary)">本工具按"现状"提供。15code <strong>不对</strong> 检测结果的绝对准确性、结果适用于特定商业决策、工具 24/7 可用性作出任何担保。</p>
+    <p style="color:var(--text-secondary);margin-top:8px">检测报告 <strong>不构成</strong> 对任何服务商的法律评价、商品质量结论或投资/交易建议。</p>
+    <p style="color:var(--text-secondary);margin-top:8px">责任上限：¥0（本工具完全免费，零对价）。</p>
+
+    <h2 style="margin-top:24px">5. 禁止滥用</h2>
+    <p style="color:var(--text-secondary)">禁止将本工具用于：对未授权系统的扫描；恶意制造虚假数据污染榜单；任何违反适用法律的行为。</p>
+
+    <h2 style="margin-top:24px">6. 联系方式</h2>
+    <p style="color:var(--text-secondary)">
+      一般咨询 <a href="mailto:support@15code.com" style="color:var(--accent-hover)">support@15code.com</a><br>
+      争议申诉 <a href="mailto:dispute@15code.com" style="color:var(--accent-hover)">dispute@15code.com</a>
+    </p>
+  </div>
+</main>
+
+<footer class="footer" style="margin-top:48px">
+  <div class="footer-links">
+    <a href="/">首页</a>
+    <a href="/docs/policy">榜单政策</a>
+    <a href="https://15code.com" target="_blank">15code 主站</a>
+  </div>
+  <div style="font-size:12px;color:var(--text-muted)">© 2026 15code · Apache 2.0 开源</div>
+</footer>
+
+<script>
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'light' ? 'dark' : 'light';
+  if (next === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('theme', next); } catch(e){}
+}
+</script>
+</body>
+</html>
