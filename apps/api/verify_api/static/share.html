@@ -1,60 +1,104 @@
 <!doctype html>
-<html lang="zh-CN"><head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="color-scheme" content="dark light"/>
+<script>(function(){try{var t=localStorage.getItem("theme");if(t==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}})();</script>
 <title>扫描报告 · 15code Verify</title>
 <meta property="og:title" content="15code Verify 扫描报告"/>
 <meta property="og:description" content="LLM 服务商诚信度检测报告（由社区匿名贡献）"/>
 <meta property="og:image" content="https://verify.15code.com/static/og.svg"/>
+<link rel="stylesheet" href="/static/css/style.css"/>
 <style>
-:root{--bg:#0b0d10;--fg:#e6e6e6;--brand:#ff6a00;--line:#222;--card:#12151a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 system-ui,sans-serif}
-a{color:var(--brand)}.container{max-width:720px;margin:0 auto;padding:32px 16px}
-header{border-bottom:1px solid var(--line);padding:14px 0;margin-bottom:24px}
-.brand{font-weight:700;font-size:18px}.brand span{color:var(--brand)}
-.report{padding:24px;border:1px solid var(--line);border-radius:12px;background:var(--card)}
-.score{font-size:36px;font-weight:700}.score .num{color:var(--brand)}
-.kvs{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:16px}
-.kv{padding:12px;border:1px solid var(--line);border-radius:8px}
-.kv .k{font-weight:600;font-size:13px}.kv .v{font-size:13px;color:#bbb;margin-top:2px}
-.promo{padding:20px;border:1px solid rgba(255,106,0,.4);background:rgba(255,106,0,.06);border-radius:12px;margin-top:24px}
-code{background:#1a1d22;padding:1px 6px;border-radius:3px;font-size:13px}
-.btn{display:inline-block;padding:10px 20px;border-radius:6px;background:var(--brand);color:#fff;text-decoration:none;font-weight:600}
-</style></head>
+.score-big { font-size:48px; font-weight:700; background:var(--gradient-2); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:8px 0; }
+.kv-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:16px; }
+.kv-item { background:var(--bg-secondary); border:1px solid var(--border); border-radius:12px; padding:14px; }
+.kv-item .k { font-size:13px; color:var(--text-muted); margin-bottom:4px; }
+.kv-item .v { font-size:15px; color:var(--text-primary); font-weight:500; }
+.promo-15code { padding:24px; border-radius:16px; background:linear-gradient(135deg,rgba(99,102,241,.08) 0%,rgba(139,92,246,.12) 100%); border:1px solid var(--border); margin:24px 0 0; }
+</style>
+</head>
 <body>
-<header><div class="container brand" style="padding:0"><span>15code</span> Verify · 扫描报告</div></header>
-<main class="container">
-  <div id="loading">加载中…</div>
+<nav class="topbar">
+  <div style="display:flex;align-items:center;gap:12px">
+    <a href="/" class="brand">⚡ 15code</a>
+    <span style="color:var(--text-secondary)">/ Verify · 扫描报告</span>
+  </div>
+  <div class="nav-right">
+    <a href="/">重新检测</a>
+    <button class="btn-sm" onclick="toggleTheme()">🌓</button>
+  </div>
+</nav>
+
+<main class="container" style="max-width:760px">
+  <div id="loading" style="text-align:center;padding:48px;color:var(--text-muted)">加载中…</div>
   <div id="report" style="display:none"></div>
 </main>
+
+<footer class="footer" style="margin-top:48px">
+  <div class="footer-links">
+    <a href="/">首页</a>
+    <a href="https://15code.com" target="_blank">15code 主站</a>
+    <a href="https://github.com/zpf000zpf/15code-verify" target="_blank">GitHub</a>
+  </div>
+  <div style="font-size:12px;color:var(--text-muted)">© 2026 15code</div>
+</footer>
+
 <script>
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'light' ? 'dark' : 'light';
+  if (next === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  else document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('theme', next); } catch(e){}
+}
+
 const sid = location.pathname.split('/').pop();
-fetch('/v1/scan/'+sid).then(r=>r.json()).then(s=>{
-  if (!s.report) { document.getElementById('loading').textContent = '报告未找到或未公开'; return; }
-  const r = s.report, auth = r.authenticity||{}, bill = r.billing_audit||{}, cache = r.cache_audit||{}, qos = r.qos||{};
-  document.getElementById('loading').style.display='none';
+fetch('/v1/scan/' + sid).then(r => r.json()).then(s => {
+  if (!s.report) {
+    document.getElementById('loading').textContent = '报告未找到或未公开';
+    return;
+  }
+  const r = s.report, auth = r.authenticity || {}, bill = r.billing_audit || {},
+        cache = r.cache_audit || {}, qos = r.qos || {};
+  document.getElementById('loading').style.display = 'none';
   const w = document.getElementById('report');
-  w.style.display='block';
+  w.style.display = 'block';
   w.innerHTML = `
-    <div class="report">
-      <h2>扫描报告 · <code>${r.scan_id}</code></h2>
-      <div style="color:#888;font-size:13px">声明模型 <code>${r.claimed_model}</code> · 方法论 ${r.methodology_version}</div>
-      <div class="score" style="margin-top:16px">信任分 <span class="num">${r.trust_score}</span> / 100
-        <span style="font-size:15px;color:#888"> · ${r.verdict}</span></div>
-      <div class="kvs">
-        <div class="kv"><div class="k">🔍 真伪度</div><div class="v">
-          claimed 一致性 ${Math.round((auth.confidence_is_claimed||0)*100)}%${auth.likely_model?' · 最相似: <code>'+auth.likely_model+'</code>':''}</div></div>
-        <div class="kv"><div class="k">💰 计费</div><div class="v">
-          input 偏差 ${(bill.input_token_deviation_pct||0).toFixed(1)}% · output ${(bill.output_token_deviation_pct||0).toFixed(1)}%</div></div>
-        <div class="kv"><div class="k">🗄️ 缓存</div><div class="v">${cache.cache_supported?'已观测支持':'未观测'}</div></div>
-        <div class="kv"><div class="k">⚡ 性能</div><div class="v">
-          TTFT p50 ${(qos.ttft_ms_p50||0).toFixed(0)}ms · 错误 ${Math.round((qos.error_rate||0)*100)}%</div></div>
+    <div class="card">
+      <div style="text-align:center;padding:16px 0 24px;border-bottom:1px solid var(--border);margin-bottom:16px">
+        <div style="font-size:14px;color:var(--text-muted);margin-bottom:4px">扫描 <code>${r.scan_id}</code></div>
+        <div style="font-size:13px;color:var(--text-muted)">声明模型 <code>${r.claimed_model}</code> · 方法论 ${r.methodology_version}</div>
+        <div class="score-big">${r.trust_score} <span style="font-size:24px;color:var(--text-muted)">/ 100</span></div>
+        <div style="color:var(--text-secondary);font-size:14px">${r.verdict}</div>
       </div>
-      <p style="margin-top:12px;font-size:12px;color:#888;font-style:italic">${r.disclaimer||''}</p>
+      <div class="kv-grid">
+        <div class="kv-item"><div class="k">🔍 真伪度</div><div class="v">
+          claimed 一致性 ${Math.round((auth.confidence_is_claimed || 0) * 100)}%
+          ${auth.likely_model ? '<br><span style="font-size:12px;color:var(--text-muted)">最相似: <code>' + auth.likely_model + '</code></span>' : ''}
+        </div></div>
+        <div class="kv-item"><div class="k">💰 计费</div><div class="v">
+          ${bill.systematic_inflation
+            ? `⚠️ input ${bill.input_token_deviation_pct.toFixed(1)}% · output ${bill.output_token_deviation_pct.toFixed(1)}%`
+            : `output ${(bill.output_token_deviation_pct || 0).toFixed(1)}%<br><span style="font-size:12px;color:var(--text-muted)">(input 估算)</span>`}
+        </div></div>
+        <div class="kv-item"><div class="k">🗄️ 缓存</div><div class="v">${cache.cache_supported ? '✓ 已观测支持' : '— 未观测'}</div></div>
+        <div class="kv-item"><div class="k">⚡ 性能</div><div class="v">
+          TTFT p50 ${(qos.ttft_ms_p50 || 0).toFixed(0)}ms<br>
+          <span style="font-size:12px;color:var(--text-muted)">错误率 ${Math.round((qos.error_rate || 0) * 100)}%</span>
+        </div></div>
+      </div>
+      <p style="margin-top:16px;font-size:12px;color:var(--text-muted);font-style:italic">${r.disclaimer || ''}</p>
     </div>
-    <div class="promo">
-      这份报告由 <a href="/">15code Verify</a> 生成（免费 · 开源）·
-      想用一个信得过的 LLM API？<a href="https://15code.com" class="btn" style="margin-left:8px">试试 15code →</a>
-    </div>`;
-}).catch(e=>{document.getElementById('loading').textContent='加载失败：'+e});
+    <div class="promo-15code">
+      这份报告由 <a href="/" style="color:var(--accent-hover)">15code Verify</a> 生成（免费 · 开源）。
+      想用一个信得过的 LLM API 服务？
+      <a class="btn-primary" href="https://15code.com" style="margin-left:8px;display:inline-flex;padding:10px 20px;border-radius:10px;text-decoration:none">试试 15code →</a>
+    </div>
+  `;
+}).catch(e => {
+  document.getElementById('loading').textContent = '加载失败：' + e;
+});
 </script>
-</body></html>
+</body>
+</html>
