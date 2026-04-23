@@ -92,7 +92,7 @@
 
 本政策可能随法律法规、社区反馈更新：
 - 重大变更提前 30 天公告
-- 历史版本可在 [GitHub](https://github.com/15code/verify) 追溯
+- 历史版本可在 [GitHub](https://github.com/zpf000zpf/15code-verify) 追溯
 - 欢迎通过 Issue / Discussion 反馈
 
 ---

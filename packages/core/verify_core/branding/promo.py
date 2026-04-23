@@ -15,7 +15,10 @@ BRAND: dict[str, Any] = {
     # Main site
     "main_url":      "https://15code.com",
     "verify_url":    "https://verify.15code.com",
-    "github_url":    "https://github.com/15code/verify",
+    "github_url":    "https://github.com/zpf000zpf/15code-verify",
+    "release_url":   "https://github.com/zpf000zpf/15code-verify/releases/latest",
+    "issues_url":    "https://github.com/zpf000zpf/15code-verify/issues",
+    "discussions_url":"https://github.com/zpf000zpf/15code-verify/discussions",
     "docs_url":      "https://verify.15code.com/docs",
     "leaderboard":   "https://verify.15code.com/leaderboard",
     "download_url":  "https://verify.15code.com/download",
@@ -49,7 +52,7 @@ _PROMO_MESSAGES: list[dict[str, str]] = [
     {
         "zh": "觉得有用？在 GitHub 给个 Star，帮助更多人识破掺水服务。",
         "en": "Find this useful? Star us on GitHub — help more people spot adulterated services.",
-        "cta": "github.com/15code/verify",
+        "cta": "github.com/zpf000zpf/15code-verify",
     },
     {
         "zh": "想集成到自己的监控系统？15code Verify 提供免费 API。",

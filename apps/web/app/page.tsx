@@ -45,7 +45,7 @@ export default function HomePage() {
           这个工具完全免费，由 <a href="https://15code.com" className="text-brand underline">15code</a> 开源维护。
           我们相信 LLM 生态需要更多透明度 —— 无论你最终用哪家服务，
           我们希望你拿到的是物有所值的产品。
-          如果这个工具帮到了你，欢迎 <a href="https://github.com/15code/verify"
+          如果这个工具帮到了你，欢迎 <a href="https://github.com/zpf000zpf/15code-verify"
           className="underline">给 GitHub 加个 Star</a>，
           或者试试我们自家的服务 —— 我们用同样的标准要求自己。
         </p>

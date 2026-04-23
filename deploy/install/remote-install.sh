@@ -67,7 +67,7 @@ if [[ -d "$INSTALL_DIR/.git" ]]; then
   git pull --ff-only
 else
   mkdir -p "$(dirname "$INSTALL_DIR")"
-  git clone -b "$BRANCH" https://github.com/15code/verify.git "$INSTALL_DIR"
+  git clone -b "$BRANCH" https://github.com/zpf000zpf/15code-verify.git "$INSTALL_DIR"
   cd "$INSTALL_DIR"
 fi
 

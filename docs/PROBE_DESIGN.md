@@ -100,7 +100,7 @@ trust_score_0_100 = 100
 ## 七、质疑渠道
 
 如对方法论有任何质疑或改进建议：
-- GitHub Issues: https://github.com/15code/verify/issues
+- GitHub Issues: https://github.com/zpf000zpf/15code-verify/issues
 - 邮件：methodology@15code.com
 
 欢迎学术界与工业界共同完善。

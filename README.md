@@ -46,7 +46,7 @@ verify scan \
 ### 3. Docker 自托管（内网 / 数据敏感场景）
 
 ```bash
-git clone https://github.com/15code/verify.git
+git clone https://github.com/zpf000zpf/15code-verify.git
 cd verify/deploy/docker
 cp .env.example .env
 docker compose up -d
@@ -84,7 +84,7 @@ docker compose up -d
 如果你觉得有用：
 - ⭐ 在 GitHub 给本项目点个 Star
 - 🔄 把报告分享给更多人
-- 💬 在 [社区](https://github.com/15code/verify/discussions) 提问或反馈
+- 💬 在 [社区](https://github.com/zpf000zpf/15code-verify/discussions) 提问或反馈
 - 🚀 **试试 [15code 官方 LLM 服务](https://15code.com)** —— 我们用同样的标准要求自己
 
 ---

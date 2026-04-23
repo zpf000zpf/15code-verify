@@ -61,7 +61,7 @@ docker compose up -d
 # 打开 http://localhost:3000`}
         </CodeBlock>
         <div className="flex gap-3 text-sm">
-          <a className="text-brand underline" href="https://github.com/15code/verify/pkgs/container/verify">镜像仓库 ↗</a>
+          <a className="text-brand underline" href="https://github.com/zpf000zpf/15code-verify/pkgs/container/verify">镜像仓库 ↗</a>
           <a className="text-brand underline" href="/download/docker-compose.yml">下载 docker-compose.yml</a>
         </div>
       </section>
@@ -74,17 +74,17 @@ docker compose up -d
         </p>
         <div className="grid md:grid-cols-2 gap-3 text-sm">
           <a className="block p-3 border border-neutral-800 rounded hover:border-brand"
-             href="https://github.com/15code/verify/archive/refs/heads/main.tar.gz">
+             href="https://github.com/zpf000zpf/15code-verify/archive/refs/heads/main.tar.gz">
             <div className="font-semibold">📥 完整源码（tar.gz）</div>
             <div className="text-neutral-400 mt-1">最新 main 分支打包</div>
           </a>
           <a className="block p-3 border border-neutral-800 rounded hover:border-brand"
-             href="https://github.com/15code/verify/releases">
+             href="https://github.com/zpf000zpf/15code-verify/releases">
             <div className="font-semibold">🏷️ Releases（稳定版）</div>
             <div className="text-neutral-400 mt-1">签名的 release tarball + wheel</div>
           </a>
           <a className="block p-3 border border-neutral-800 rounded hover:border-brand"
-             href="https://github.com/15code/verify.git">
+             href="https://github.com/zpf000zpf/15code-verify.git">
             <div className="font-semibold">🔧 git clone</div>
             <div className="text-neutral-400 mt-1">git clone 后 ./scripts/setup.sh</div>
           </a>

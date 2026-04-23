@@ -5,7 +5,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/15code/verify.git
+git clone https://github.com/zpf000zpf/15code-verify.git
 cd verify
 ```
 

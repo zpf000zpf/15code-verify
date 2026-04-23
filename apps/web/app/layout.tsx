@@ -43,7 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <div className="mt-2">
               © 2026 <a href="https://15code.com" className="text-brand">15code</a> ·
               <span className="ml-1">Apache 2.0 开源</span> ·
-              <a href="https://github.com/15code/verify" className="ml-1 underline">GitHub</a>
+              <a href="https://github.com/zpf000zpf/15code-verify" className="ml-1 underline">GitHub</a>
             </div>
           </div>
         </footer>

@@ -181,14 +181,18 @@ def about():
     console.print(Panel.fit(
         f"[bold cyan]{BRAND['name']}[/bold cyan]\n"
         f"[dim]{BRAND['tagline_zh']}[/dim]\n\n"
-        f"🏠 Main site:   [link]{BRAND['main_url']}[/link]\n"
-        f"🔍 Verify:      [link]{BRAND['verify_url']}[/link]\n"
-        f"📊 Leaderboard: [link]{BRAND['leaderboard']}[/link]\n"
-        f"⭐ GitHub:      [link]{BRAND['github_url']}[/link]\n"
-        f"📖 Docs:        [link]{BRAND['docs_url']}[/link]\n"
-        f"💬 Discord:     [link]{BRAND['discord']}[/link]\n\n"
+        f"🏠 Main site    : [link]{BRAND['main_url']}[/link]\n"
+        f"🔍 Verify       : [link]{BRAND['verify_url']}[/link]\n"
+        f"📊 Leaderboard  : [link]{BRAND['leaderboard']}[/link]\n"
+        f"📖 Docs         : [link]{BRAND['docs_url']}[/link]\n"
+        f"\n"
+        f"⭐ GitHub       : [link]{BRAND['github_url']}[/link]\n"
+        f"🏷️  Latest rls   : [link]{BRAND['release_url']}[/link]\n"
+        f"🐛 Issues       : [link]{BRAND['issues_url']}[/link]\n"
+        f"💬 Discussions  : [link]{BRAND['discussions_url']}[/link]\n\n"
         "[cyan]想用一个信得过的 LLM API 服务？[/cyan]\n"
-        f"[cyan]→ {BRAND['main_url']}[/cyan] — 统一 API 网关，按官方价计费，零套路",
+        f"[cyan]→ {BRAND['main_url']}[/cyan] — 统一 API 网关，按官方价计费，零套路\n"
+        f"\n[dim]觉得工具有用？给 GitHub 点个 Star：{BRAND['github_url']}[/dim]",
         border_style="cyan", box=box.ROUNDED, title="About 15code",
     ))
 
