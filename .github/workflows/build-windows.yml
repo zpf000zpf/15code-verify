@@ -1,0 +1,61 @@
+name: Build Windows EXE
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:         # 允许手动触发
+
+jobs:
+  build-exe:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e packages/core
+          pip install -e apps/cli
+          pip install pyinstaller
+
+      - name: Build EXE
+        shell: pwsh
+        run: |
+          pyinstaller `
+            --onefile `
+            --name verify `
+            --collect-all verify_core `
+            --collect-all verify_cli `
+            --hidden-import=tiktoken_ext.openai_public `
+            --hidden-import=tiktoken_ext `
+            --hidden-import=rich.console `
+            --hidden-import=typer `
+            --hidden-import=yaml `
+            --add-data "data/15code_catalog/models.yaml;data/15code_catalog" `
+            --console `
+            apps/cli/verify_cli/main.py
+
+      - name: Smoke test
+        shell: pwsh
+        run: |
+          .\dist\verify.exe version
+          .\dist\verify.exe about
+
+      - name: Upload EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-windows-x64
+          path: dist/verify.exe
+
+      # Attach to GitHub Release (only on tag push)
+      - name: Upload to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/verify.exe
+          token: ${{ secrets.GITHUB_TOKEN }}
