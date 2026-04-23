@@ -1,0 +1,101 @@
+# 15code Verify — Supported Models Catalog
+# 
+# This file is the SINGLE SOURCE OF TRUTH for which models the tool can
+# audit. Only models listed here are accepted by the scanner.
+#
+# Synced from the 15code platform database (model_pricing table).
+# To update: run `scripts/sync_models_from_15code.py` or edit this file and
+# commit the change.
+#
+# Generated: 2026-04-23
+# Schema version: 1
+schema_version: 1
+generated_at: "2026-04-23"
+
+models:
+  # ── Anthropic family ─────────────────────────────────────
+  - id: claude-haiku-4-5-20251001
+    display_name: "Claude Haiku 4.5"
+    family: anthropic
+    protocol: anthropic        # also works via openai-compatible
+    tier: fast
+    input_price_per_mtok: 1.30
+    output_price_per_mtok: 6.50
+    cache_read_per_mtok: 0.13
+    cache_creation_per_mtok: 1.625
+    supports_cache: true
+
+  - id: claude-opus-4-6
+    display_name: "Claude Opus 4.6"
+    family: anthropic
+    protocol: anthropic
+    tier: flagship
+    input_price_per_mtok: 6.50
+    output_price_per_mtok: 32.50
+    cache_read_per_mtok: 0.65
+    cache_creation_per_mtok: 8.125
+    supports_cache: true
+
+  - id: claude-opus-4-7
+    display_name: "Claude Opus 4.7"
+    family: anthropic
+    protocol: anthropic
+    tier: flagship
+    input_price_per_mtok: 6.50
+    output_price_per_mtok: 32.50
+    cache_read_per_mtok: 0.65
+    cache_creation_per_mtok: 8.125
+    supports_cache: true
+
+  - id: claude-sonnet-4-6
+    display_name: "Claude Sonnet 4.6"
+    family: anthropic
+    protocol: anthropic
+    tier: mid
+    input_price_per_mtok: 3.90
+    output_price_per_mtok: 19.50
+    cache_read_per_mtok: 0.39
+    cache_creation_per_mtok: 4.875
+    supports_cache: true
+
+  # ── OpenAI / Codex family ────────────────────────────────
+  - id: gpt-5.3-codex
+    display_name: "GPT-5.3 Codex"
+    family: openai
+    protocol: openai
+    tier: mid
+    input_price_per_mtok: 1.75
+    output_price_per_mtok: 14.00
+    cache_read_per_mtok: 0.175
+    supports_cache: false
+
+  - id: gpt-5.4
+    display_name: "GPT-5.4"
+    family: openai
+    protocol: openai
+    tier: flagship
+    input_price_per_mtok: 2.50
+    output_price_per_mtok: 15.00
+    cache_read_per_mtok: 0.25
+    supports_cache: false
+
+  # ── Zhipu GLM family ─────────────────────────────────────
+  - id: glm-5
+    display_name: "GLM-5"
+    family: zhipu
+    protocol: openai           # 智谱走 OpenAI 兼容
+    tier: mid
+    input_price_per_mtok: 0.48
+    output_price_per_mtok: 1.50
+    cache_read_per_mtok: 0.12
+    supports_cache: true
+
+  - id: glm-5.1
+    display_name: "GLM-5.1"
+    family: zhipu
+    protocol: openai
+    tier: flagship
+    input_price_per_mtok: 0.80
+    output_price_per_mtok: 2.40
+    cache_read_per_mtok: 0.36
+    supports_cache: true

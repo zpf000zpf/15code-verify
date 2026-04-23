@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.api
+    environment:
+      CORS_ORIGINS: "${CORS_ORIGINS:-*}"
+      # Optional: official keys for ground-truth baseline refresh
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      OPENAI_API_KEY:    "${OPENAI_API_KEY:-}"
+    ports: ["8000:8000"]
+    restart: unless-stopped
+
+  web:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile.web
+    environment:
+      NEXT_PUBLIC_API_URL: "${NEXT_PUBLIC_API_URL:-http://localhost:8000}"
+    ports: ["3000:3000"]
+    depends_on: [api]
+    restart: unless-stopped

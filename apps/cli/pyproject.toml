@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "15code-verify"
+version = "0.1.0"
+description = "15code Verify — CLI for detecting LLM provider tampering"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+authors = [{ name = "15code", email = "dev@15code.com" }]
+dependencies = [
+    "verify-core>=0.1.0",
+    "typer>=0.12",
+    "rich>=13.7",
+]
+
+[project.scripts]
+verify = "verify_cli.main:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["verify_cli"]

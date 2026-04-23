@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>15code Verify · LLM 服务商诚信度检测</title>
+<meta name="description" content="免费开源的 LLM API 服务商诚信度检测工具。由 15code 出品。"/>
+<style>
+:root{--bg:#0b0d10;--fg:#e6e6e6;--muted:#888;--brand:#ff6a00;--brand-d:#cc5500;--line:#222;--card:#12151a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 system-ui,-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--brand);text-decoration:none}a:hover{text-decoration:underline}
+.container{max-width:960px;margin:0 auto;padding:0 16px}
+header{border-bottom:1px solid var(--line)}
+header .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+header .brand{font-weight:700;font-size:18px}
+header .brand span{color:var(--brand)}
+header nav{display:flex;gap:18px;font-size:14px;color:#bbb}
+header nav a{color:#bbb}header nav a.primary{color:var(--brand)}
+footer{border-top:1px solid var(--line);color:#888;font-size:13px;margin-top:48px;padding:24px 0}
+.hero{text-align:center;padding:56px 0 24px}
+.hero h1{font-size:36px;margin:0 0 12px;line-height:1.2}
+.hero h1 span{color:var(--brand)}
+.hero p{color:#bbb;margin:8px 0}
+.hero .small{color:#888;font-size:12px;margin-top:12px}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;font-weight:600;cursor:pointer;border:none;font-size:15px}
+.btn.primary{background:var(--brand);color:#fff}.btn.primary:hover{background:var(--brand-d);text-decoration:none}
+.btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin:32px 0}
+.card{padding:16px;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+.card h3{margin:0 0 6px;font-size:15px}
+.card p{margin:0;font-size:13px;color:#999}
+.promo{padding:20px;border:1px solid rgba(255,106,0,.4);background:rgba(255,106,0,.06);border-radius:12px;margin:32px 0}
+form label{display:block;margin:10px 0 4px;font-size:13px;color:#ccc}
+form input,form select{width:100%;padding:10px 12px;border-radius:6px;background:#0f1216;border:1px solid var(--line);color:#eee;font-size:14px}
+form input:focus,form select:focus{border-color:var(--brand);outline:none}
+.row2{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.tos{font-size:12px;color:#999;line-height:1.5;display:flex;gap:8px;align-items:flex-start;margin-top:12px}
+.hint{color:#888;font-size:11px;margin-top:4px}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;background:rgba(255,106,0,.15);color:var(--brand);margin-left:8px}
+.report{padding:24px;border:1px solid var(--line);border-radius:12px;background:var(--card);margin-top:20px}
+.score{font-size:32px;font-weight:700}
+.score .num{color:var(--brand)}
+.kvs{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:16px}
+.kv{padding:12px;border:1px solid var(--line);border-radius:8px}
+.kv .k{font-weight:600;font-size:13px}
+.kv .v{font-size:13px;color:#bbb;margin-top:2px}
+.progress{height:6px;background:#1c1f25;border-radius:3px;overflow:hidden;margin-top:8px}
+.progress>div{height:100%;background:var(--brand);transition:width .3s}
+.warn{padding:12px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.35);border-radius:8px;color:#f4c680;font-size:13px;margin:12px 0}
+.err{padding:12px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.35);border-radius:8px;color:#ff9999;font-size:13px}
+code,pre{font-family:ui-monospace,monospace;background:#0a0b0d;border:1px solid var(--line);border-radius:6px}
+code{padding:1px 6px;font-size:13px}
+pre{padding:14px;overflow-x:auto;font-size:13px;white-space:pre}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.tabs button{background:transparent;border:none;color:#aaa;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;font-size:14px}
+.tabs button.active{color:var(--brand);border-bottom-color:var(--brand)}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<header><div class="container bar">
+  <a href="/" class="brand"><span>15code</span> Verify</a>
+  <nav>
+    <a href="#verify">开始检测</a>
+    <a href="#download">下载</a>
+    <a href="/docs" target="_blank">API 文档</a>
+    <a href="https://15code.com" target="_blank" class="primary">15code 主站 ↗</a>
+  </nav>
+</div></header>
+
+<main class="container">
+<section class="hero">
+  <h1>你买的 <span>Opus / GPT / GLM</span> 是真的吗？</h1>
+  <p>免费 · 开源 · 人人可用</p>
+  <p>LLM 服务商诚信度检测 —— 由 15code 出品</p>
+  <p style="margin-top:20px"><a class="btn primary" href="#verify">立即检测 →</a>
+     <a class="btn ghost" href="#download" style="margin-left:8px">下载工具</a></p>
+  <p class="small">完全免费 · 扫描消耗的是你自己第三方渠道的额度 · 不消耗 15code 资源</p>
+</section>
+
+<section class="grid">
+  <div class="card"><h3>🔍 真伪度</h3><p>指纹识别 + 风格计量 + 能力差分，推断实际模型</p></div>
+  <div class="card"><h3>💰 计费诚信</h3><p>官方 tokenizer 本地对账，发现 token 虚报</p></div>
+  <div class="card"><h3>🗄️ 缓存合规</h3><p>prompt cache 折扣是否真的兑现</p></div>
+  <div class="card"><h3>⚡ 性能质量</h3><p>TTFT · 错误率 · 疑似量化检测</p></div>
+</section>
+
+<!-- ═══════ 检测区 ═══════ -->
+<section id="verify" style="margin-top:48px">
+  <h2>开始检测</h2>
+  <div id="form-wrap">
+    <form id="scan-form">
+      <label>第三方 Base URL</label>
+      <input name="base_url" required placeholder="https://api.some-reseller.com/v1" />
+
+      <label>API Key</label>
+      <input name="api_key" type="password" required placeholder="sk-xxxxxx" />
+      <div class="hint">ⓘ 一次性扫描 · key 仅内存驻留 · 扫描结束即销毁 · 不落盘</div>
+
+      <label>声明模型（仅 15code 在售模型可审计）</label>
+      <select name="claimed_model" required id="model-select">
+        <option value="">加载中...</option>
+      </select>
+      <div class="hint">
+        仅限 15code 平台在售模型。为什么？这样我们能维护准确的 Ground-Truth 基线。
+        <a href="https://15code.com/pricing" target="_blank">查看完整模型定价 ↗</a>
+      </div>
+
+      <div class="row2" style="margin-top:12px">
+        <div>
+          <label>协议</label>
+          <select name="protocol"><option value="openai">OpenAI 兼容</option><option value="anthropic">Anthropic</option></select>
+        </div>
+        <div>
+          <label>档位</label>
+          <select name="depth">
+            <option value="quick">快速 (~30s)</option>
+            <option value="standard" selected>标准 (~3min)</option>
+            <option value="deep">深度 (~10min)</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="padding:12px;border:1px solid rgba(255,106,0,.4);background:rgba(255,106,0,.08);border-radius:8px;margin-top:16px;font-size:13px;color:#f4c680">
+        ⚠️ <b>扫描结果将匿名公开到榜单</b>。仅聚合统计数据（不含 prompt / response 原文 / API key），
+        供应商通过 base_url 的 host 名显示。使用本工具即表示同意此行为。
+      </div>
+
+      <div class="tos" style="margin-top:12px"><input required type="checkbox" name="tos" id="tos"/>
+        <label for="tos" style="margin:0">我已阅读并同意
+        <a href="/docs/tos" target="_blank">服务条款</a> 与
+        <a href="/docs/policy" target="_blank">榜单政策</a>，
+        并担保拥有测试该 API 端点的合法权限。</label></div>
+
+      <p style="margin-top:16px"><button class="btn primary" type="submit">开始扫描</button></p>
+    </form>
+  </div>
+
+  <div id="progress-wrap" class="hidden report">
+    <div>扫描 ID: <code id="scan-id"></code></div>
+    <div id="stage">启动中...</div>
+    <div class="progress"><div id="bar" style="width:2%"></div></div>
+  </div>
+
+  <div id="report-wrap" class="hidden"></div>
+</section>
+
+<!-- ═══════ 广告区（核心！）═══════ -->
+<section class="promo">
+  <h3 style="margin:0">💡 来自 15code</h3>
+  <p style="margin:8px 0;color:#ddd">我们开源这个工具是因为相信 <b>透明的市场对所有人都好</b>。</p>
+  <p style="margin:8px 0;color:#bbb;font-size:14px">
+    正在找 <b>不掺水、不虚报、价格透明</b> 的 LLM API 网关？
+    <b>15code</b> 提供 Claude / GPT / GLM 统一接入，按官方价计费，零套路。
+    我们自家服务也会出现在本工具的公开榜单中。
+  </p>
+  <p><a class="btn primary" href="https://15code.com">访问 15code</a>
+     <a class="btn ghost" href="https://15code.com/pricing" style="margin-left:8px">查看定价</a></p>
+</section>
+
+<!-- ═══════ 下载区 ═══════ -->
+<section id="download" style="margin-top:48px">
+  <h2>下载工具（4 种方式）</h2>
+
+  <div class="tabs">
+    <button class="active" data-tab="pip">🐍 pip</button>
+    <button data-tab="docker">🐳 Docker</button>
+    <button data-tab="source">📦 源码</button>
+    <button data-tab="sdk">🔌 SDK</button>
+  </div>
+
+  <div class="tab-pane" data-pane="pip">
+    <p>安装 Python 3.10+，然后：</p>
+    <pre>pip install 15code-verify
+
+verify scan \
+  --base-url https://api.some-reseller.com/v1 \
+  --api-key sk-xxxxxx \
+  --claimed-model claude-opus-4-7</pre>
+    <p><a href="/download/verify-core-0.1.0-py3-none-any.whl">verify-core wheel ↓</a>
+     · <a href="/download/15code_verify-0.1.0-py3-none-any.whl">15code-verify CLI wheel ↓</a>
+     · <a href="https://pypi.org/project/15code-verify/" target="_blank">PyPI 页面 ↗</a></p>
+  </div>
+
+  <div class="tab-pane hidden" data-pane="docker">
+    <p>适合内网 / 数据敏感场景：</p>
+    <pre># 下载 compose file
+curl -O https://verify.15code.com/download/docker-compose.yml
+docker compose up -d
+
+# 打开 http://localhost:3000</pre>
+    <p><a href="/download/docker-compose.yml">docker-compose.yml ↓</a></p>
+  </div>
+
+  <div class="tab-pane hidden" data-pane="source">
+    <p>完整源码（离线部署 / 二次开发）：</p>
+    <pre>curl -O https://verify.15code.com/download/15code-verify-src.tar.gz
+tar xzf 15code-verify-src.tar.gz
+cd 15code-verify && ./scripts/setup.sh</pre>
+    <p><a href="/download/15code-verify-src.tar.gz">源码 tarball ↓</a>
+     · <a href="https://github.com/15code/verify" target="_blank">GitHub ↗</a></p>
+  </div>
+
+  <div class="tab-pane hidden" data-pane="sdk">
+    <p>嵌入你自己的监控 / 采购流程：</p>
+    <pre>from verify_core import Scanner, ScanConfig
+
+scanner = Scanner(ScanConfig(
+    base_url="https://api.some-reseller.com/v1",
+    api_key="sk-xxx",
+    claimed_model="claude-opus-4-7",
+    tos_accepted=True,
+))
+report = scanner.run()
+print(report.trust_score)
+print(report.authenticity.likely_model)</pre>
+  </div>
+</section>
+
+</main>
+<footer><div class="container">
+  <div>⚠️ 本工具数据反映特定时间点的技术指标观测，<b>不构成对服务商的法律评价或商业决策建议</b>。
+       详见 <a href="/docs/policy" target="_blank">榜单政策</a> 与 <a href="/docs/tos" target="_blank">服务条款</a>。</div>
+  <div style="margin-top:8px">© 2026 <a href="https://15code.com">15code</a>
+    · Apache 2.0 开源
+    · <a href="https://github.com/15code/verify" target="_blank">GitHub</a>
+    · <a href="mailto:security@15code.com">security@15code.com</a></div>
+</div></footer>
+
+<script>
+const apiBase = '';
+
+// 加载支持的模型
+fetch(apiBase + '/v1/models').then(r => r.json()).then(data => {
+  const sel = document.getElementById('model-select');
+  sel.innerHTML = '';
+  const ph = document.createElement('option');
+  ph.value = ''; ph.textContent = '— 请选择模型 —'; sel.appendChild(ph);
+  const groups = {};
+  for (const m of data.models) {
+    const g = m.family;
+    if (!groups[g]) groups[g] = [];
+    groups[g].push(m);
+  }
+  for (const [g, ms] of Object.entries(groups)) {
+    const og = document.createElement('optgroup');
+    og.label = g.toUpperCase();
+    for (const m of ms) {
+      const op = document.createElement('option');
+      op.value = m.id;
+      op.textContent = m.display_name + ' · ' + m.tier + (m.supports_cache?' · cache':'');
+      og.appendChild(op);
+    }
+    sel.appendChild(og);
+  }
+}).catch(e => console.warn('models load failed', e));
+
+// 展示/隐藏供应商名
+// Tab 切换
+document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+  document.querySelector('[data-pane="'+b.dataset.tab+'"]').classList.remove('hidden');
+}));
+
+// 提交扫描
+document.getElementById('scan-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const f = e.target;
+  const payload = {
+    base_url: f.base_url.value,
+    api_key: f.api_key.value,
+    claimed_model: f.claimed_model.value,
+    protocol: f.protocol.value,
+    depth: f.depth.value,
+    // v1.1: scans are public-by-default; server derives vendor from host
+    publish_to_leaderboard: true,
+    vendor_display_name: null,
+    tos_accepted: f.tos.checked,
+  };
+  if (!payload.claimed_model) { alert('请选择模型'); return; }
+
+  const res = await fetch(apiBase + '/v1/scan', {
+    method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  const data = await res.json();
+  if (!res.ok) { alert('错误: ' + (data.detail || JSON.stringify(data))); return; }
+
+  document.getElementById('form-wrap').classList.add('hidden');
+  document.getElementById('progress-wrap').classList.remove('hidden');
+  document.getElementById('scan-id').textContent = data.scan_id;
+
+  const evt = new EventSource(apiBase + '/v1/scan/' + data.scan_id + '/events');
+  evt.addEventListener('progress', e => {
+    const s = JSON.parse(e.data);
+    document.getElementById('stage').textContent = s.stage;
+    document.getElementById('bar').style.width = Math.round(s.progress*100) + '%';
+    if (s.stage === 'done' || s.stage === 'error') {
+      evt.close();
+      fetch(apiBase + '/v1/scan/' + data.scan_id).then(r=>r.json()).then(r => {
+        document.getElementById('progress-wrap').classList.add('hidden');
+        if (r.report) renderReport(r.report);
+        else if (r.error) showErr(r.error);
+      });
+    }
+  });
+});
+
+function renderReport(r) {
+  const w = document.getElementById('report-wrap');
+  w.classList.remove('hidden');
+  const auth = r.authenticity || {};
+  const bill = r.billing_audit || {};
+  const cache = r.cache_audit || {};
+  const qos = r.qos || {};
+  w.innerHTML = `
+    <div class="report">
+      <h3>扫描报告 · <code>${r.scan_id}</code> <span class="badge">${r.methodology_version}</span></h3>
+      <div class="score">信任分: <span class="num">${r.trust_score}</span> / 100
+        <span style="font-size:14px;color:#888;margin-left:8px">${r.verdict}</span></div>
+      <div class="kvs">
+        <div class="kv"><div class="k">🔍 真伪度</div><div class="v">
+          claimed 一致性 ${Math.round(auth.confidence_is_claimed*100 || 0)}%
+          ${auth.likely_model ? '· 最相似: <code>'+auth.likely_model+'</code>' : ''}
+        </div></div>
+        <div class="kv"><div class="k">💰 计费</div><div class="v">
+          ${bill.systematic_inflation
+            ? `⚠️ input ${bill.input_token_deviation_pct.toFixed(1)}% · output ${bill.output_token_deviation_pct.toFixed(1)}%`
+            : `(估算，非系统性偏差) output ${(bill.output_token_deviation_pct||0).toFixed(1)}%`}
+        </div></div>
+        <div class="kv"><div class="k">🗄️ 缓存</div><div class="v">
+          ${cache.cache_supported ? '已观测支持':'未观测'}
+        </div></div>
+        <div class="kv"><div class="k">⚡ 性能</div><div class="v">
+          TTFT p50: ${(qos.ttft_ms_p50||0).toFixed(0)}ms ·
+          错误 ${Math.round((qos.error_rate||0)*100)}%
+        </div></div>
+      </div>
+      <p style="margin-top:12px;font-size:12px;color:#888;font-style:italic">${r.disclaimer||''}</p>
+      <p style="margin-top:16px">
+        <button class="btn ghost" onclick="downloadJson(${JSON.stringify(JSON.stringify(r))})">下载 JSON</button>
+        <button class="btn ghost" onclick="location.reload()" style="margin-left:8px">再测一次</button>
+      </p>
+    </div>
+    <div class="promo" style="margin-top:16px">
+      这个免费工具由 <a href="https://15code.com">15code</a> 提供。
+      喜欢？欢迎把报告分享出去，让更多人看到真实的 LLM 市场。
+      想试试 15code 自家服务 → <a href="https://15code.com">15code.com</a>
+    </div>
+  `;
+}
+
+function downloadJson(s) {
+  const blob = new Blob([s], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'verify-report.json';
+  a.click();
+}
+
+function showErr(msg) {
+  document.getElementById('progress-wrap').classList.add('hidden');
+  const w = document.getElementById('report-wrap');
+  w.classList.remove('hidden');
+  w.innerHTML = '<div class="err">扫描错误: ' + msg + '</div>';
+}
+</script>
+</body>
+</html>

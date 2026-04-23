@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+.next/
+out/
+.turbo/
+
+# Env / secrets
+.env
+.env.local
+*.pem
+
+# Data (sensitive / large)
+data/baselines/*.json
+data/probe_bank/*.private.yaml
+!data/baselines/.gitkeep
+!data/probe_bank/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Reports
+*.report.json

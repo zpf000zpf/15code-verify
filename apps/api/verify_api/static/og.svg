@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b0d10"/>
+      <stop offset="100%" stop-color="#1a0d02"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6a00"/>
+      <stop offset="100%" stop-color="#ff9046"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <!-- Decorative grid -->
+  <g stroke="#1a1f27" stroke-width="1" opacity="0.4">
+    <line x1="0" y1="100" x2="1200" y2="100"/>
+    <line x1="0" y1="200" x2="1200" y2="200"/>
+    <line x1="0" y1="300" x2="1200" y2="300"/>
+    <line x1="0" y1="400" x2="1200" y2="400"/>
+    <line x1="0" y1="500" x2="1200" y2="500"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+  <!-- Brand -->
+  <text x="80" y="130" font-family="system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,sans-serif" font-size="32" font-weight="700" fill="#ff6a00">15code</text>
+  <text x="230" y="130" font-family="system-ui,sans-serif" font-size="32" font-weight="400" fill="#e6e6e6">Verify</text>
+  <!-- Title -->
+  <text x="80" y="280" font-family="system-ui,sans-serif" font-size="72" font-weight="700" fill="#e6e6e6">你买的 <tspan fill="url(#accent)">Opus / GPT / GLM</tspan></text>
+  <text x="80" y="370" font-family="system-ui,sans-serif" font-size="72" font-weight="700" fill="#e6e6e6">是 <tspan fill="url(#accent)">真的</tspan> 吗？</text>
+  <!-- Subtitle -->
+  <text x="80" y="450" font-family="system-ui,sans-serif" font-size="26" fill="#b0b0b0">免费开源 · 检测模型掺水 · token 虚报 · 缓存合规 · 性能衰减</text>
+  <!-- URL -->
+  <text x="80" y="560" font-family="ui-monospace,Menlo,Consolas,monospace" font-size="22" fill="#ff6a00">→ verify.15code.com</text>
+  <!-- Icons -->
+  <g transform="translate(950,180)">
+    <circle cx="0" cy="0" r="80" fill="none" stroke="#ff6a00" stroke-width="3" stroke-dasharray="8 4"/>
+    <text x="0" y="8" text-anchor="middle" font-size="60" fill="#ff6a00">🔍</text>
+  </g>
+  <!-- Footer bar -->
+  <rect x="0" y="610" width="1200" height="20" fill="url(#accent)"/>
+</svg>

@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+WORKDIR /app
+
+# install core package + api deps
+COPY packages/core /app/packages/core
+COPY apps/api      /app/apps/api
+
+RUN pip install --no-cache-dir -e /app/packages/core && \
+    pip install --no-cache-dir -r /app/apps/api/requirements.txt
+
+WORKDIR /app/apps/api
+EXPOSE 8000
+CMD ["uvicorn", "verify_api.main:app", "--host", "0.0.0.0", "--port", "8000"]
